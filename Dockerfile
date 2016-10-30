@@ -12,5 +12,6 @@ RUN unzip awscli-bundle.zip
 RUN ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 
 RUN npm install -g yarn@0.16.1
+RUN npm install -g gatsby@1.0.0-alpha7
 
 ENTRYPOINT ["/bin/bash", "-c"]
