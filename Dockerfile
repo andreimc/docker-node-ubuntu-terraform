@@ -1,19 +1,16 @@
-FROM node:latest
+FROM mhart/alpine-node
+
+RUN apk --no-cache update && \
+    apk --no-cache add python py-pip py-setuptools ca-certificates groff less unzip openssl && \
+    pip --no-cache-dir install awscli && \
+    rm -rf /var/cache/apk/*
 
 ENV VERSION=0.8.8
 
-RUN apt-get update
-RUN apt-get install -y unzip
+RUN wget https://releases.hashicorp.com/terraform/$VERSION/terraform_${VERSION}_linux_amd64.zip && \
+    unzip terraform_${VERSION}_linux_amd64.zip && rm terraform_${VERSION}_linux_amd64.zip && \
+    mv terraform /usr/bin/
 
-RUN wget http://releases.hashicorp.com/terraform/$VERSION/terraform_$VERSION_linux_amd64.zip
-RUN unzip terraform_$VERSION_linux_amd64.zip
-RUN mv terraform /usr/bin/
+RUN npm install -g yarn serverless
 
-RUN wget https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
-RUN unzip awscli-bundle.zip
-RUN ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-
-RUN npm install -g yarn
-RUN npm install -g serverless
-
-ENTRYPOINT ["/bin/bash", "-c"]
+ENTRYPOINT ["/bin/sh", "-c"]
