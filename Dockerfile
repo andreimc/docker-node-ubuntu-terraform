@@ -5,7 +5,7 @@ RUN apk --no-cache update && \
     pip --no-cache-dir install awscli && \
     rm -rf /var/cache/apk/*
 
-ENV VERSION=0.8.8
+ENV VERSION=0.10.0
 
 RUN wget https://releases.hashicorp.com/terraform/$VERSION/terraform_${VERSION}_linux_amd64.zip && \
     unzip terraform_${VERSION}_linux_amd64.zip && rm terraform_${VERSION}_linux_amd64.zip && \
