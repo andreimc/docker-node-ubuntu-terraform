@@ -1,15 +1,15 @@
-FROM mhart/alpine-node:6.11.2
+FROM node:6.11.2-alpine
 
 RUN apk --no-cache update && \
     apk --no-cache add python py-pip py-setuptools ca-certificates groff less unzip openssl && \
     pip --no-cache-dir install awscli && \
     rm -rf /var/cache/apk/*
 
-RUN apk add vips-dev fftw-dev --no-cache --repository https://dl-3.alpinelinux.org/alpine/edge/testing/
-
 RUN apk add --no-cache \
-				make \
-				g++ 
+		make \
+		g++ \
+    libwebp \
+    fftw-dev 
 
 ENV VERSION=0.10.0
 
