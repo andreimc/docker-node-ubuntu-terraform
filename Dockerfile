@@ -1,15 +1,8 @@
-FROM node:6.11.2-alpine
+FROM node
 
-RUN apk --no-cache update && \
-    apk --no-cache add python py-pip py-setuptools ca-certificates groff less unzip openssl && \
-    pip --no-cache-dir install awscli && \
-    rm -rf /var/cache/apk/*
-
-RUN apk add --no-cache \
-		make \
-		g++ \
-    libwebp \
-    fftw-dev 
+RUN apt-get update && \
+    apt-get install make g++ python python-pip python-dev ca-certificates unzip openssl -y -qqq && \
+    pip install awscli 
 
 ENV VERSION=0.10.0
 
@@ -17,6 +10,6 @@ RUN wget https://releases.hashicorp.com/terraform/$VERSION/terraform_${VERSION}_
     unzip terraform_${VERSION}_linux_amd64.zip && rm terraform_${VERSION}_linux_amd64.zip && \
     mv terraform /usr/bin/
 
-RUN npm install -g yarn serverless
+RUN npm install -g serverless
 
 ENTRYPOINT ["/bin/sh", "-c"]
