@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:6.11
+FROM mhart/alpine-node:6.11.2
 
 RUN apk --no-cache update && \
     apk --no-cache add python py-pip py-setuptools ca-certificates groff less unzip openssl && \
